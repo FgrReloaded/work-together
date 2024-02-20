@@ -5,7 +5,7 @@ import { auth, currentUser } from "@clerk/nextjs"
 import { api } from "@/convex/_generated/api"
 
 const convex = new ConvexHttpClient(
-    process.env.NExt_PUBLIC_CONVEX_URL!
+    process.env.NEXT_PUBLIC_CONVEX_URL!
 )
 
 const liveblocks = new Liveblocks({
