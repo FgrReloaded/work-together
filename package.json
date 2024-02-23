@@ -25,6 +25,7 @@
     "convex": "^1.8.0",
     "convex-helpers": "^0.1.15",
     "date-fns": "^3.3.1",
+    "dom-to-image": "^2.6.0",
     "jspdf": "^2.5.1",
     "lucide-react": "^0.321.0",
     "nanoid": "^5.0.5",
@@ -42,6 +43,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@types/dom-to-image": "^2.6.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

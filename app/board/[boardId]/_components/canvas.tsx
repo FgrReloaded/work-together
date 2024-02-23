@@ -494,15 +494,16 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 lastUsedColor={lastUsedColor}
             />
             <ContextMenu>
-                <ContextMenuTrigger>
-                    <svg className="h-[100vh] w-[100vw] svgCanvas"
+                <ContextMenuTrigger >
+                    <div id="svgCanvas">
+                    <svg className="h-[100vh] w-[100vw] svgCanvas" 
                         onWheel={onWheel}
                         onPointerMove={onPointerMove}
                         onPointerLeave={onPointerLeave}
                         onPointerUp={onPointerUp}
                         onPointerDown={onPointerDown}
                     >
-                        <g
+                        <g 
                             style={{
                                 transform: `translate(${camera.x}px, ${camera.y}px)`
                             }}
@@ -533,6 +534,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                             )}
                         </g>
                     </svg>
+                    </div>
 
                 </ContextMenuTrigger>
                 <ContextMenuContent>

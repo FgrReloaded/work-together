@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Download, File, Image as Img } from "lucide-react";
 import jsPDF from "jspdf";
 import { useQuery } from "convex/react"
+import domtoimage from 'dom-to-image';
 
 
 import {
@@ -22,32 +23,49 @@ const Export = ({ boardId }: ExportProps) => {
     const data = useQuery(api.boards.get, { id: boardId as Id<"boards"> })
 
     const exportCanvas = (type: string) => {
-        let svgCanvas = document.querySelector('.svgCanvas') as HTMLElement;
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const svgData = new XMLSerializer().serializeToString(svgCanvas);
-        const img = new Image();
-        const svgSize = svgCanvas.getBoundingClientRect();
-        canvas.width = svgSize.width;
-        canvas.height = svgSize.height;
-        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-        const url = URL.createObjectURL(svgBlob);
-        img.src = url;
-        img.onload = () => {
-            ctx?.drawImage(img, 0, 0);
-            const png = canvas.toDataURL('image/png');
-            if (type === 'png') {
-                const downloadLink = document.createElement('a');
-                downloadLink.href = png;
-                downloadLink.download = `${data?.title}.png`;
-                downloadLink.click();
-            }
-            if (type === "pdf") {
-                const pdf = new jsPDF();
-                pdf.addImage(png, 'PNG', 0, 0, 0, 0);
-                pdf.save(`${data?.title}.pdf`);
-            }
-        }
+        let svgCanvas = document.querySelector('#svgCanvas') as HTMLElement;
+        domtoimage.toPng(svgCanvas)
+            .then(function (dataUrl) {
+                if (type === 'png') {
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = dataUrl;
+                    downloadLink.download = `${data?.title}.png`;
+                    downloadLink.click();
+                }
+                if (type === "pdf") {
+                    let pdf = new jsPDF('landscape');
+                    pdf.addImage(dataUrl, 'PNG', 0, 0,  0,0);
+                    pdf.save(`${data?.title}.pdf`);
+                }
+            })
+            .catch(function (error) {
+                console.error('Error exporting canvas:', error);
+            });
+        // const canvas = document.createElement('canvas');
+        // const ctx = canvas.getContext('2d');
+        // const svgData = new XMLSerializer().serializeToString(svgCanvas);
+        // const img = new Image();
+        // const svgSize = svgCanvas.getBoundingClientRect();
+        // canvas.width = svgSize.width;
+        // canvas.height = svgSize.height;
+        // const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+        // const url = URL.createObjectURL(svgBlob);
+        // img.src = url;
+        // img.onload = () => {
+        //     ctx?.drawImage(img, 0, 0);
+        //     const png = canvas.toDataURL('image/png');
+        //     if (type === 'png') {
+        //         const downloadLink = document.createElement('a');
+        //         downloadLink.href = png;
+        //         downloadLink.download = `${data?.title}.png`;
+        //         downloadLink.click();
+        //     }
+        //     if (type === "pdf") {
+        //         const pdf = new jsPDF();
+        //         pdf.addImage(png, 'PNG', 0, 0, 0, 0);
+        //         pdf.save(`${data?.title}.pdf`);
+        //     }
+        // }
 
     }
 
