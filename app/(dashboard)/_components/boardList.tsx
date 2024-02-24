@@ -29,7 +29,6 @@ export const BoardList = ({
     orgId, 
     ...query,
   });
-  console.log("QUERY", query)
   if (data === undefined) {
     return (
       <div>
@@ -53,17 +52,14 @@ export const BoardList = ({
   }
 
   if (!data?.length && query.search) {
-    console.log("Empty Search")
     return <EmptySearch />;
   }
 
   if (!data?.length && query.favorites) {
-    console.log("Favorites")
     return <EmptyFavorites />
   }
 
   if (!data?.length) {
-    console.log("No boards")
     return <EmptyBoards />
   }
 

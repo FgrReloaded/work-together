@@ -14,8 +14,15 @@ interface DashboardPageProps {
 const DashboardPage = ({
   searchParams,
 }: DashboardPageProps) => {
-  console.log("SEARCH PARAMS", searchParams)
   const { organization } = useOrganization();
+  const url = window.location.search;
+  const params = new URLSearchParams(url);
+  const search = params.get("search");
+  const favorites = params.get("favorites");
+  searchParams = {
+    search: search || searchParams.search,
+    favorites: favorites || searchParams.favorites,
+  };
 
   return ( 
     <div className="flex-1 h-[calc(100%-80px)] p-6">
