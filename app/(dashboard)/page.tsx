@@ -14,6 +14,7 @@ interface DashboardPageProps {
 const DashboardPage = ({
   searchParams,
 }: DashboardPageProps) => {
+  console.log("SEARCH PARAMS", searchParams)
   const { organization } = useOrganization();
 
   return ( 
