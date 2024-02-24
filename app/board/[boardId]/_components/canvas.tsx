@@ -475,7 +475,6 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         }
 
         document.addEventListener("keydown", onKeyDown);
-
         return () => {
             document.removeEventListener("keydown", onKeyDown)
         }
@@ -496,48 +495,48 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             <ContextMenu>
                 <ContextMenuTrigger >
                     <div id="svgCanvas">
-                    <svg className="h-[100vh] w-[100vw] svgCanvas" 
-                        onWheel={onWheel}
-                        onPointerMove={onPointerMove}
-                        onPointerLeave={onPointerLeave}
-                        onPointerUp={onPointerUp}
-                        onPointerDown={onPointerDown}
-                    >
-                        <g 
-                            style={{
-                                transform: `translate(${camera.x}px, ${camera.y}px)`
-                            }}
+                        <svg className="h-[100vh] w-[100vw] svgCanvas"
+                            onWheel={onWheel}
+                            onPointerMove={onPointerMove}
+                            onPointerLeave={onPointerLeave}
+                            onPointerUp={onPointerUp}
+                            onPointerDown={onPointerDown}
                         >
-                            {layersIds.map((layerId) => (
-                                <LayerPreview key={layerId} id={layerId} onLayerPointerDown={onLayerPointerDown} selectionColor={layerIdsToColorSelection[layerId]} />
-                            ))}
-                            <SelectionBox
-                                onResizeHandlePointerDown={onResizeHandlePointerDown}
-                            />
-                            {canvasState.mode === canvasMode.SelectionNet && canvasState.current != null && (
-                                <rect
-                                    className="fill-blue-500/5 stroke-blue-500 stroke-1"
-                                    x={Math.min(canvasState.origin.x, canvasState.current.x)}
-                                    y={Math.min(canvasState.origin.y, canvasState.current.y)}
-                                    width={Math.abs(canvasState.origin.x - canvasState.current.x)}
-                                    height={Math.abs(canvasState.origin.y - canvasState.current.y)}
+                            <g
+                                style={{
+                                    transform: `translate(${camera.x}px, ${camera.y}px)`
+                                }}
+                            >
+                                {layersIds.map((layerId) => (
+                                    <LayerPreview key={layerId} id={layerId} onLayerPointerDown={onLayerPointerDown} selectionColor={layerIdsToColorSelection[layerId]} />
+                                ))}
+                                <SelectionBox
+                                    onResizeHandlePointerDown={onResizeHandlePointerDown}
                                 />
-                            )}
-                            <CursorPresence />
-                            {pencilDraft != null && pencilDraft.length > 0 && (
-                                <Path
-                                    points={pencilDraft}
-                                    fill={colorToCss(lastUsedColor)}
-                                    x={0}
-                                    y={0}
-                                />
-                            )}
-                        </g>
-                    </svg>
+                                {canvasState.mode === canvasMode.SelectionNet && canvasState.current != null && (
+                                    <rect
+                                        className="fill-blue-500/5 stroke-blue-500 stroke-1"
+                                        x={Math.min(canvasState.origin.x, canvasState.current.x)}
+                                        y={Math.min(canvasState.origin.y, canvasState.current.y)}
+                                        width={Math.abs(canvasState.origin.x - canvasState.current.x)}
+                                        height={Math.abs(canvasState.origin.y - canvasState.current.y)}
+                                    />
+                                )}
+                                <CursorPresence />
+                                {pencilDraft != null && pencilDraft.length > 0 && (
+                                    <Path
+                                        points={pencilDraft}
+                                        fill={colorToCss(lastUsedColor)}
+                                        x={0}
+                                        y={0}
+                                    />
+                                )}
+                            </g>
+                        </svg>
                     </div>
 
                 </ContextMenuTrigger>
-                <ContextMenuContent>
+                <ContextMenuContent className="lg:block hidden">
                     <ContextMenuItem onClick={copyElement} disabled={!elementSelected}>Copy <ContextMenuShortcut className="w-12 h-6 flex items-center justify-center  bg-blue-200 text-xs rounded-lg">⌘ C</ContextMenuShortcut></ContextMenuItem>
                     <ContextMenuItem onClick={cutElement} disabled={!elementSelected}>Cut <ContextMenuShortcut className="w-12 h-6 flex items-center justify-center  bg-blue-200 text-xs rounded-lg">⌘ X</ContextMenuShortcut></ContextMenuItem>
                     <ContextMenuItem onPointerUp={handlePaste} disabled={elementSelected || elementCopied == null}>Paste <ContextMenuShortcut className="w-12 h-6 flex items-center justify-center  bg-blue-200 text-xs rounded-lg">⌘ V</ContextMenuShortcut></ContextMenuItem>
