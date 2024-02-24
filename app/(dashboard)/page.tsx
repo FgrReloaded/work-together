@@ -3,6 +3,7 @@
 import { useOrganization } from "@clerk/nextjs";
 import { EmptyOrg } from "./_components/emptyOrg";
 import { BoardList } from "./_components/boardList";
+import { useSearchParams } from "next/navigation";
 
 interface DashboardPageProps {
   searchParams: {
@@ -15,8 +16,7 @@ const DashboardPage = ({
   searchParams,
 }: DashboardPageProps) => {
   const { organization } = useOrganization();
-  const url = window.location.search;
-  const params = new URLSearchParams(url);
+  const params = useSearchParams();
   const search = params.get("search");
   const favorites = params.get("favorites");
   searchParams = {
