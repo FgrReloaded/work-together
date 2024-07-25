@@ -28,6 +28,7 @@ import {
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 import { useCopyPaste } from "@/hooks/useCopyPaste"
+import { ChatCalls } from "./chatCall"
 
 const MAX_LAYERS = 100;
 
@@ -293,7 +294,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             return;
         }
         setCanvasState({ origin: point, mode: canvasMode.Pressing });
-    }, [camera, canvasState.mode, setCanvasState]);
+    }, [camera, canvasState.mode, setCanvasState, startDrawing]);
 
     const onPointerMove = useMutation(({ setMyPresence }, e: React.PointerEvent) => {
         e.preventDefault();
@@ -478,7 +479,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         return () => {
             document.removeEventListener("keydown", onKeyDown)
         }
-    }, [deleteLayers, history]);
+    }, [deleteLayers, history, copyElement, cutElement, handlePaste]);
 
     return (
         <main
@@ -486,6 +487,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         >
             <Info boardId={boardId} />
             <Participants />
+            <ChatCalls />
             <Toolbar canvasState={canvasState} setCanvasState={setCanvasState} canRedo={canRedo} canUndo={canUndo} undo={history.undo} redo={history.redo} />
             <SelectionTools
                 camera={camera}
@@ -495,7 +497,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             <ContextMenu>
                 <ContextMenuTrigger >
                     <div id="svgCanvas">
-                        <svg className="h-[100vh] w-[100vw] svgCanvas"
+                        <svg className="h-[100vh] w-full svgCanvas"
                             onWheel={onWheel}
                             onPointerMove={onPointerMove}
                             onPointerLeave={onPointerLeave}

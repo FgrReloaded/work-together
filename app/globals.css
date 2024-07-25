@@ -4,6 +4,10 @@
 html, body, :root{
   height: 100%;
 }
+body{
+  display: flex;
+  flex-wrap: nowrap;
+}
  
 @layer base {
   :root {
