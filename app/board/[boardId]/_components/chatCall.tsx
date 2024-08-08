@@ -16,7 +16,7 @@ export const ChatCalls = () => {
                         {isVideoCallExpanded ? <VideoOff size={25} /> : <Video size={25} />}
                     </div>
                 </Hint>
-                <Hint label="Start Video Call" side="left" sideOffset={10} align="center" >
+                <Hint label="Open Chat" side="left" sideOffset={10} align="center" >
                     <div className="cursor-pointer hover:bg-gray-100 p-2 rounded-md" onClick={handleChat}>
                         {isChatExpanded ? <MessageSquareOff size={25} /> : <MessageSquare size={25} />}
                     </div>
