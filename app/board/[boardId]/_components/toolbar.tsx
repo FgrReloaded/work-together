@@ -3,7 +3,6 @@
 import {
     BoxSelect,
     Circle,
-    MousePointer2,
     Pencil,
     Redo2,
     Square,
@@ -14,7 +13,7 @@ import {
 
 import { ToolButton } from "./toolButton";
 import { CanvasState, LayerType, canvasMode } from "@/types/canvas";
-
+import { AiPrompt } from "./aiPrompt";
 
 interface ToolbarProps {
     canvasState: CanvasState;
@@ -93,6 +92,9 @@ export const Toolbar = ({ canvasState, setCanvasState, undo, redo, canRedo, canU
                         canvasState.mode === canvasMode.Pencil
                     }
                 />
+                <div className="flex items-center gap-2">
+                    <AiPrompt />
+                </div>
             </div>
             <div className="bg-white rounded-md p-1.5 flex  shadow-md">
                 <ToolButton

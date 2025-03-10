@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.5",
+    "@google/generative-ai": "^0.24.0",
     "@liveblocks/client": "^1.9.7",
     "@liveblocks/node": "^1.9.7",
     "@liveblocks/react": "^1.9.7",

@@ -5,7 +5,6 @@ import { Info } from "./info"
 import { Participants } from "./participants"
 import { Toolbar } from "./toolbar"
 
-
 import { useCanRedo, useCanUndo, useHistory, useSelf, useMutation, useStorage, useOthersMapped } from "@/liveblocks.config"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { CursorPresence } from "./cursorPresence"
@@ -541,7 +540,6 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 <ContextMenuContent className="lg:block hidden">
                     <ContextMenuItem onClick={copyElement} disabled={!elementSelected}>Copy <ContextMenuShortcut className="w-12 h-6 flex items-center justify-center  bg-blue-200 text-xs rounded-lg">⌘ C</ContextMenuShortcut></ContextMenuItem>
                     <ContextMenuItem onClick={cutElement} disabled={!elementSelected}>Cut <ContextMenuShortcut className="w-12 h-6 flex items-center justify-center  bg-blue-200 text-xs rounded-lg">⌘ X</ContextMenuShortcut></ContextMenuItem>
-                    <ContextMenuItem onPointerUp={handlePaste} disabled={elementSelected || elementCopied == null}>Paste <ContextMenuShortcut className="w-12 h-6 flex items-center justify-center  bg-blue-200 text-xs rounded-lg">⌘ V</ContextMenuShortcut></ContextMenuItem>
                 </ContextMenuContent>
             </ContextMenu>
         </main>

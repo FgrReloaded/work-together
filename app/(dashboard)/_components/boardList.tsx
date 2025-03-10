@@ -26,7 +26,7 @@ export const BoardList = ({
   query,
 }: BoardListProps) => {
   const data = useQuery(api.boardAction.get, {
-    orgId, 
+    orgId,
     ...query,
   });
   if (data === undefined) {
@@ -73,7 +73,7 @@ export const BoardList = ({
             <NewBoardButton orgId={orgId}  />
           }
         </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5 mt-8 pb-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  2xl:grid-cols-5 gap-5 mt-8 pb-10 ">
         {data?.map((board) => (
           <BoardCard
             key={board._id}

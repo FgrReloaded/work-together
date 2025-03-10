@@ -84,7 +84,7 @@ export const BoardCard = ({
               {title}
             </span>
             {/* <span className="ml-2 text-sm text-gray-500 dark:text-white">
-                Todo: Type of board 
+                Todo: Type of board
             </span> */}
           </div>
         </div>
