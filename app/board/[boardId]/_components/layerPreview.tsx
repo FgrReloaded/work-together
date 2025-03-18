@@ -28,12 +28,12 @@ export const LayerPreview = memo(({ id, onLayerPointerDown, selectionColor }: La
         case LayerType.Rectangle:
             return (
                 <ContextMenuBox>
-                <Rectangle
-                    id={id}
-                    layer={layer}
-                    onPointerDown={onLayerPointerDown}
-                    selectionColor={selectionColor}
-                />
+                    <Rectangle
+                        id={id}
+                        layer={layer}
+                        onPointerDown={onLayerPointerDown}
+                        selectionColor={selectionColor}
+                    />
                 </ContextMenuBox>
             )
         case LayerType.Ellipse:
@@ -78,6 +78,33 @@ export const LayerPreview = memo(({ id, onLayerPointerDown, selectionColor }: La
                     fill={layer.fill ? colorToCss(layer.fill) : "#000"}
                     stroke={selectionColor}
                 />
+            )
+        case LayerType.Emoji:
+            return (
+                <foreignObject
+                    x={layer.x}
+                    y={layer.y}
+                    width={layer.width}
+                    height={layer.height}
+                    onPointerDown={(e) => onLayerPointerDown(e, id)}
+                    style={{
+                        outline: selectionColor ? `1px solid ${selectionColor}` : "none",
+                    }}
+                >
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            fontSize: `${Math.min(layer.width, layer.height) * 0.7}px`,
+                            userSelect: "none",
+                        }}
+                    >
+                        {layer.emoji}
+                    </div>
+                </foreignObject>
             )
         default:
             return null;

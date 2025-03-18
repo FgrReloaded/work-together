@@ -15,6 +15,7 @@ export enum LayerType {
     Path,
     Text,
     Note,
+    Emoji,
 };
 
 export type RectangleLayer = {
@@ -68,6 +69,15 @@ export type NoteLayer = {
     value?: string;
 };
 
+export type EmojiLayer = {
+    type: LayerType.Emoji;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    emoji: string;
+}
+
 export type Point = {
     x: number;
     y: number;
@@ -115,7 +125,8 @@ export type CanvasState =
     } |
     {
         mode: canvasMode.Inserting
-        layerType: LayerType.Ellipse | LayerType.Rectangle | LayerType.Text | LayerType.Note;
+        layerType: LayerType.Ellipse | LayerType.Rectangle | LayerType.Text | LayerType.Note | LayerType.Emoji;
+        emoji?: string;
     }
 
 
@@ -129,4 +140,4 @@ export enum canvasMode {
     Pencil
 }
 
-export type Layer = RectangleLayer | EllipseLayer | PathLayer | TextLayer | NoteLayer;
+export type Layer = RectangleLayer | EllipseLayer | PathLayer | TextLayer | NoteLayer | EmojiLayer;

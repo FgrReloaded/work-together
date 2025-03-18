@@ -63,7 +63,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
 
     const insertLayer = useMutation(({ storage, setMyPresence },
-        layerType: LayerType.Ellipse | LayerType.Rectangle | LayerType.Note | LayerType.Text,
+        layerType: LayerType.Ellipse | LayerType.Rectangle | LayerType.Note | LayerType.Text | LayerType.Emoji,
         position: Point
     ) => {
         const liveLayers = storage.get("layers");
@@ -75,6 +75,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
         const liveLayerIds = storage.get("layerIds");
         const layerId = nanoid();
+
         if (layerType === LayerType.Text || layerType === LayerType.Note) {
             layer = new LiveObject({
                 type: layerType,
@@ -84,6 +85,15 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 width: 100,
                 fill: lastUsedColor,
                 value: "Text",
+            })
+        } else if (layerType === LayerType.Emoji) {
+            layer = new LiveObject({
+                type: layerType,
+                x: position.x,
+                y: position.y,
+                height: 60,
+                width: 60,
+                emoji: canvasState.mode === canvasMode.Inserting ? canvasState.emoji || "👍" : "",
             })
         } else {
             layer = new LiveObject({
@@ -101,7 +111,8 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
         setMyPresence({ selection: [layerId] }, { addToHistory: true });
         setCanvasState({ mode: canvasMode.None });
-    }, [lastUsedColor]);
+        // @ts-expect-error-ignore
+    }, [lastUsedColor, canvasState.emoji]);
 
     const handlePaste = useMutation(({ self }) => {
         let copiedElement = self.presence.copiedElement;
@@ -469,6 +480,14 @@ export const Canvas = ({ boardId }: CanvasProps) => {
                 }
                 case "p" || "P": {
                     setCanvasState({ mode: canvasMode.Pencil });
+                    break;
+                }
+                case "o" || "O": {
+                    setCanvasState({
+                        mode: canvasMode.Inserting,
+                        layerType: LayerType.Emoji,
+                        emoji: "👍" // Default emoji
+                    });
                     break;
                 }
             }

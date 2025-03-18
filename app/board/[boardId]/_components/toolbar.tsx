@@ -14,6 +14,7 @@ import {
 import { ToolButton } from "./toolButton";
 import { CanvasState, LayerType, canvasMode } from "@/types/canvas";
 import { AiPrompt } from "./aiPrompt";
+import { EmojiPicker } from "./emojiPicker";
 
 interface ToolbarProps {
     canvasState: CanvasState;
@@ -91,6 +92,10 @@ export const Toolbar = ({ canvasState, setCanvasState, undo, redo, canRedo, canU
                     isActive={
                         canvasState.mode === canvasMode.Pencil
                     }
+                />
+                <EmojiPicker
+                    canvasState={canvasState}
+                    setCanvasState={setCanvasState}
                 />
                 <div className="flex items-center gap-2">
                     <AiPrompt />
